@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  main:
+    build: .
+    command: python pkg_manager_tests.py #/bin/bash
+    volumes:
+      - .:/usr/src/app:delegated
+    tty: true
