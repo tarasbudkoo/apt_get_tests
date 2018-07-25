@@ -16,6 +16,12 @@ class TestFramework:
         args = ['apt-get', 'install', pkg_name]
         return self.execution_wrapper.execute_command_with_option(args, input_option)
 
+    def install_pkg_without_input_options(self, pkg_name):
+        logging.info("Installing {} pkg without input options".format(pkg_name))
+        cmd = "apt-get install" + " " + pkg_name + " " + "-y"
+
+        return self.execution_wrapper.execute_command_popen(cmd)
+
     def upgrade_apt_get(self):
         logging.info("Upgrading apt-get")
 
