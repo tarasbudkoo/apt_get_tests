@@ -24,7 +24,7 @@ class PKGManagerTests(unittest.TestCase):
         pkg_version = self.test_framework.check_pkg_version(pkg_name)
 
         self.assertEqual(0, pkg_status[0])
-        self.assertTrue(pkg_version)
+        self.assertNotEqual("(none)", pkg_version)
 
         self.test_framework.remove_pkg(pkg_name)
 
