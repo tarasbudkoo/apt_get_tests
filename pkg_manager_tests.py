@@ -26,6 +26,8 @@ class PKGManagerTests(unittest.TestCase):
         self.assertEqual(0, pkg_status[0])
         self.assertTrue(pkg_version)
 
+        self.test_framework.remove_pkg(pkg_name)
+
     def test_install_and_remove_with_version(self):
         pkg_name = "nmap"
         pkg_version = "6.47-3+deb8u2"
@@ -47,7 +49,7 @@ class PKGManagerTests(unittest.TestCase):
         self.assertEqual("(none)", new_pkg_version)
 
     def test_installation_interrupt(self):
-        pkg_name = "tinyproxy"
+        pkg_name = "tircd"
 
         self.test_framework.install_pkg(pkg_name, 'n')
 
@@ -73,6 +75,30 @@ class PKGManagerTests(unittest.TestCase):
         self.assertEqual(pkg_version_2, self.test_framework.check_pkg_version(pkg_name))
 
         self.test_framework.remove_pkg(pkg_name)
+
+    def test_install_list_of_pkg(self):
+        pkg_name_1 = "nmap"
+        pkg_name_2 = "tinyproxy"
+
+        pkg_1_status = self.test_framework.get_pkg_pwd(pkg_name_1)
+        pkg_2_status = self.test_framework.get_pkg_pwd(pkg_name_2)
+
+        self.assertEqual(1, pkg_1_status[0])
+        self.assertEqual(1, pkg_2_status[0])
+
+        self.test_framework.install_pkg_without_input_options(pkg_name_1 + " " + pkg_name_2)
+
+        pkg_1_status_new = self.test_framework.get_pkg_pwd(pkg_name_1)
+        pkg_2_status_new = self.test_framework.get_pkg_pwd(pkg_name_2)
+
+        self.assertEqual(0, pkg_1_status_new[0])
+        self.assertEqual(0, pkg_2_status_new[0])
+
+        self.test_framework.remove_pkg(pkg_name_1)
+        self.test_framework.remove_pkg(pkg_name_2)
+
+        self.assertEqual(1, self.test_framework.get_pkg_pwd(pkg_name_1)[0])
+        self.assertEqual(1, self.test_framework.get_pkg_pwd(pkg_name_2)[0])
 
 
 if __name__ == '__main__':
