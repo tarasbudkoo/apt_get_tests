@@ -30,7 +30,7 @@ class PKGManagerTests(unittest.TestCase):
 
     def test_install_and_remove_with_version(self):
         pkg_name = "nmap"
-        pkg_version = "6.47-3+deb8u2"
+        pkg_version = "7.40-1"
 
         self.test_framework.install_pkg(pkg_name + "=" + pkg_version, 'y')
 
@@ -38,7 +38,7 @@ class PKGManagerTests(unittest.TestCase):
         pkg_version = self.test_framework.check_pkg_version(pkg_name)
 
         self.assertEqual(0, pkg_status[0])
-        self.assertEqual(pkg_version, "6.47-3+deb8u2")
+        self.assertEqual(pkg_version, "7.40-1")
 
         self.test_framework.remove_pkg(pkg_name)
 
@@ -62,8 +62,8 @@ class PKGManagerTests(unittest.TestCase):
     def test_install_with_update(self):
         pkg_name = "subversion-tools"
 
-        pkg_version_1 = "1.8.10-6+deb8u5"
-        pkg_version_2 = "1.8.10-6+deb8u6"
+        pkg_version_1 = "1.9.5-1+deb9u1"
+        pkg_version_2 = "1.9.5-1+deb9u2"
 
         pkg_status = self.test_framework.get_pkg_pwd(pkg_name)
         self.assertEqual(1, pkg_status[0])
